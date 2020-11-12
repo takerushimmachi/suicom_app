@@ -1,0 +1,27 @@
+<h3>マイページ</h3>
+
+<table class="table">
+
+	<tr>
+		<th>name</th>
+		<td><%= current_user.name %></td>
+		<th>プロフィール</th>
+		<td><%= current_user.introduction %></td>
+</table>
+
+	  <%= render 'follow_stats' %>
+
+      <%= render "follow_form" %>
+
+
+<p><%= link_to "プロフィールの編集", edit_user_path(current_user) %></p>
+
+<%= render 'posts/newform', post: @post %>
+
+
+<h3>あなたの投稿</h3>
+		<% @posts.each do |post| %>
+  <h1><%= post.title %></h1>
+  <p><%= post.content %></p>
+  <%= link_to "#{post.answers.count} 件の回答", post_path(post.id) %>
+<% end %>

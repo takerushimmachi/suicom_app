@@ -1,0 +1,51 @@
+<table class="post_show_table">
+
+<div class="container">
+	<li>（名前）
+		<%= @post.user.name %>
+	</li>
+	<li>（タイトル)
+		<%= @post.title %>
+	</li>
+
+	<li>
+		<%= attachment_image_tag @post, :image, :fill, 100, 100, format: 'jpg' %>
+	</li>
+	<li>（内容）
+		<%= @post.content %>
+	</li>
+
+	<h3>回答一覧</h3>
+	<% @post.answers.each do |answer| %>
+
+	<li>（回答）
+		<%= answer.answer %>
+	</li>
+	<% if current_user == @post.user %>
+		<%= form_for [@post, answer, Rating.new] do |f| %>
+		  <div id="star-<%= answer.id %>">
+		  	<%= f.hidden_field :ratet %>
+		  </div>
+		  <%= f.submit "送信" %>
+		  <script>
+		  	$("#star-<%= answer.id %>").raty({number:5, starOff:'<%= asset_path("img/star-off.png") %>', starOn:'<%= asset_path("img/star-on.png") %>',scoreName: 'rating[ratet]'})
+		  </script>
+		  <% end %>
+	<% else %>
+	<% end %>
+	<% end %>
+	<td></td>
+	<% if current_user == @post.user %>
+	<td><%= link_to "Destroy", post_path(@post), method: :delete, data: {confirm: "削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_post_#{@post.id}" %></td>
+	<% end %>
+	</tr>
+</div>
+</table>
+<%= form_for [@post, @answer] do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= f.text_area :answer, rows:'5', class: "form-control",placeholder: "回答をここに" %>
+    </div>
+  </div>
+  <%= f.submit "回答する", class: "btn btn-lg btn-base-1 mt-4" %>
+<% end %>
