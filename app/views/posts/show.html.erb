@@ -9,7 +9,9 @@
 	</li>
 
 	<li>
+		<div class="image-tag">
 		<%= attachment_image_tag @post, :image, :fill, 100, 100, format: 'jpg' %>
+		</div>
 	</li>
 	<li>（内容）
 		<%= @post.content %>
@@ -36,11 +38,12 @@
 	<% end %>
 	<td></td>
 	<% if current_user == @post.user %>
-	<td><%= link_to "Destroy", post_path(@post), method: :delete, data: {confirm: "削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_post_#{@post.id}" %></td>
+	<td><%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_post_#{@post.id}" %></td>
 	<% end %>
 	</tr>
 </div>
 </table>
+<% if @post.user != current_user %>
 <%= form_for [@post, @answer] do |f| %>
   <div class="row">
     <div class="col-sm-12">
@@ -48,4 +51,6 @@
     </div>
   </div>
   <%= f.submit "回答する", class: "btn btn-lg btn-base-1 mt-4" %>
+<% end %>
+<% else %>
 <% end %>

@@ -1,27 +1,43 @@
-<h3>マイページ</h3>
+<div class="container">
+	<h4>マイページ</h4>
+		<table class="table">
+			<tr>
+				<div class="row">
+					<h3><%= current_user.name %></h3>
+					<ul><%= render 'follow_stats' %></ul>
+			      	<ul><%= render "follow_form" %></ul>
+					<p><%= link_to "プロフィールの編集", edit_user_path(current_user) %></p>
+					<th>自己紹介</th>
+					<td><%= current_user.introduction %></td>
+					<th>投稿数</th>
+					<td><%= current_user.posts.count %></td>
+				</div>
+			</tr>
+		</table>
 
-<table class="table">
+				<div class="row">
+					<div class="col">
+						<p>新規投稿</p>
+							<%= render 'posts/newform', post: @post %>
+					</div>
 
-	<tr>
-		<th>name</th>
-		<td><%= current_user.name %></td>
-		<th>プロフィール</th>
-		<td><%= current_user.introduction %></td>
-</table>
-
-	  <%= render 'follow_stats' %>
-
-      <%= render "follow_form" %>
-
-
-<p><%= link_to "プロフィールの編集", edit_user_path(current_user) %></p>
-
-<%= render 'posts/newform', post: @post %>
-
-
-<h3>あなたの投稿</h3>
-		<% @posts.each do |post| %>
-  <h1><%= post.title %></h1>
-  <p><%= post.content %></p>
-  <%= link_to "#{post.answers.count} 件の回答", post_path(post.id) %>
-<% end %>
+					<div class="col">
+						<h4>あなたの投稿</h4>
+							<% @posts.each do |post| %>
+						<div class="card" style="width: 18rem;">
+							<div class="card-img-top">
+								<%= attachment_image_tag @post, :image %>
+							</div>
+							<div class="card-body">
+								<small>タイトル</small>
+		  						<h4 class="card-title"><%= post.title %></h4>
+								<small>質問</small>
+		  						<p class="card-text"><%= post.content %></p>
+							</div>
+		  						<ul><%= link_to "#{post.answers.count} 件の回答", post_path(post.id) %>
+		  						</ul>
+							<% end %>
+						</div>
+					</div>
+				</div>
+</div>

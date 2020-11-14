@@ -27,6 +27,12 @@ a:hover {
 
 }
 
+.image-tag:hover {
+  cursor: pointer;
+  opacity: 0.7;
+  transform: scale(1.01, 1.01);
+}
+
 
 .navbar-inverse {
 	background-color: black;
@@ -54,7 +60,6 @@ html {
  min-height: 120%;
 }
 body{
-/* footerの高さの最大値 */
  padding-bottom: 0;
  background-size: 1400px;
  width: auto;
@@ -63,7 +68,6 @@ body{
 
 footer{
  min-height: 80px;
-/* footerの最小値 */
  width:100%;
  position: absolute;
  bottom: 0;

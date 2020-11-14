@@ -4,10 +4,9 @@
     <strong id="following" class="stat">
       <%= @user.following.count %>
     </strong>
-    following
+
   <%= link_to "フォロワー", followers_user_path(@user) %>
     <strong id="followers" class="stat">
       <%= @user.followers.count %>
     </strong>
-    followers
 </div>
