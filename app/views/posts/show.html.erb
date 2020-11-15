@@ -1,46 +1,45 @@
-<table class="post_show_table">
 
 <div class="container">
-	<li>（名前）
-		<%= @post.user.name %>
-	</li>
-	<li>（タイトル)
-		<%= @post.title %>
-	</li>
-
-	<li>
-		<div class="image-tag">
-		<%= attachment_image_tag @post, :image, :fill, 100, 100, format: 'jpg' %>
+	<div class="card">
+		<div class="card-img-top">
+		    <%= attachment_image_tag @post, :image, :fill, 200, 200, format: 'jpg' %>
 		</div>
-	</li>
-	<li>（内容）
-		<%= @post.content %>
-	</li>
+		  <div class="card-body">
+		  		<small>名前</small>
+		    <h4><%= @post.user.name %></h4>
+		    	<small>タイトル</small>
+		    <h4 class="card-title"><%= @post.title %></h4>
+		    	<small>質問</small>
+		    <p class="card-text"><%= @post.content %></p>
+		  </div>
+	</div>
+</div>
 
 	<h3>回答一覧</h3>
 	<% @post.answers.each do |answer| %>
+		<li>
+			（回答）<%= answer.answer %>
+		</li>
+		<% if current_user == @post.user && answer.rating.nil? %>
+			<%= form_for [@post, answer, Rating.new] do |f| %>
+			  <div id="star-<%= answer.id %>">
+			  	<%#= f.hidden_field :ratet %>
+			  </div>
+			  <script>
+			  	$("#star-<%= answer.id %>").raty({
+			  		number: 5,
+			  		starOff: '<%= asset_path("img/star-off.png") %>',
+			  		starOn:  '<%= asset_path("img/star-on.png") %>',
+			  		scoreName: 'rating[ratet]'
+			  	})
+			  </script>
+			<% end %>
+		<% end %>
+	<% end %>
 
-	<li>（回答）
-		<%= answer.answer %>
-	</li>
 	<% if current_user == @post.user %>
-		<%= form_for [@post, answer, Rating.new] do |f| %>
-		  <div id="star-<%= answer.id %>">
-		  	<%= f.hidden_field :ratet %>
-		  </div>
-		  <%= f.submit "送信" %>
-		  <script>
-		  	$("#star-<%= answer.id %>").raty({number:5, starOff:'<%= asset_path("img/star-off.png") %>', starOn:'<%= asset_path("img/star-on.png") %>',scoreName: 'rating[ratet]'})
-		  </script>
-		  <% end %>
-	<% else %>
+		<%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_post_#{@post.id}" %>
 	<% end %>
-	<% end %>
-	<td></td>
-	<% if current_user == @post.user %>
-	<td><%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_post_#{@post.id}" %></td>
-	<% end %>
-	</tr>
 </div>
 </table>
 <% if @post.user != current_user %>

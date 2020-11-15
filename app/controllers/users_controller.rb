@@ -5,12 +5,14 @@ class UsersController < ApplicationController
 		  @user = User.find(params[:id])
       @post = Post.new
       @posts = @user.posts
+      @posts = Post.page(params[:page]).per(3)
 end
 
 
   def mypage
       @post = Post.new
       @posts = current_user.posts
+      @posts = Post.page(params[:page]).per(3)
 
   end
 
@@ -49,6 +51,21 @@ end
         @users = @user.followers
         render 'follower_show'
 end
+
+#   def rank
+#       @users = User.
+#         left_joins(:rating).
+#         distinct.
+#         sort_by do |user|
+#            = user.ratings
+#           if hoges.present?
+#             hoges.map(&:ratet).sum
+#           else
+#             0
+#           end
+#         end.
+#         reverse
+# end
 
   private
   	def user_params

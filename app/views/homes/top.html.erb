@@ -2,28 +2,12 @@
 
 <div class="container">
 <% if user_signed_in? %>
-    	    <p><%= link_to mypage_users_path do %>
+    	    <h4>ようこそ<%= link_to mypage_users_path do %>
     	     <%= current_user.name %>
   	     <% end %>
-        </p>
+        さん</h4>
 <% end %>
 
-<% @posts.each do |post| %>
-<div class="card">
-  <div class="card-img-top">
-    <%= attachment_image_tag post, :image, :fill, 200, 200, format: 'jpg' %>
-  </div>
-    <div class="card-body">
-    <h4><%= post.user.name %></h4>
-    <small>タイトル</small>
-    <h4 class="card-title"><%= post.title %></h4>
-    <small>質問</small>
-    <p class="card-text"><%= post.content %></p>
-    </div>
-  <ul>
-    <%= link_to "#{post.answers.count} 件の回答", post_path(post.id) %>
-  </ul>
-<% end %>
-</div>
-</div>
+<%= render "layouts/post_index" %>
+
 </div>

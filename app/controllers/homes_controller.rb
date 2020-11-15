@@ -3,5 +3,6 @@ class HomesController < ApplicationController
 	def top
 		@followings = current_user.following
 		@posts = Post.where(user_id: @followings.ids)
+		@posts = Post.page(params[:page]).per(5)
 	end
 end

@@ -1,22 +1,8 @@
-<table class="users_table">
-	<thead>
-		<tr>
-			<th>name</th>
-			<td><%= @user.name %></td>
-
-			<td><%= @user.introduction %></td>
-			<th colspan="3"></th>
-		</tr>
-	</thead>
-
-	<tbody>
-		<% @posts.each do |post| %>
-  <h1><%= link_to post.title, post_path(post.id) %></h1>
-  <p><%= post.content %></p>
-  <%= attachment_image_tag post, :image, :fill, 100, 100, format: 'jpeg' %>
-<% end %>
-	</tbody>
-</table>
+<div class="users">
+			<h4>名前</h4>
+      <%= @user.name %>
+      <h4>自己紹介</h4>
+      <%= @user.introduction %>
 
 <div class="follower">
       <%= link_to followers_user_path(@user) do %>
@@ -31,3 +17,5 @@
   <div>
       <%= render "follow_form" %>
   </div>
+
+  <%= render "layouts/post_index" %>
