@@ -23,7 +23,6 @@
 		<% if current_user == @post.user && answer.rating.nil? %>
 			<%= form_for [@post, answer, Rating.new] do |f| %>
 			  <div id="star-<%= answer.id %>">
-			  	<%#= f.hidden_field :ratet %>
 			  </div>
 			  <script>
 			  	$("#star-<%= answer.id %>").raty({
@@ -33,7 +32,23 @@
 			  		scoreName: 'rating[ratet]'
 			  	})
 			  </script>
+			  <%= f.submit "送信" %>
 			<% end %>
+		<% elsif answer.present? && answer.rating.present? %>
+			  <div id="star-<%= answer.id %>">
+			  </div>
+			  <script>
+
+			  	$("#star-<%= answer.id %>").raty({
+			  		size: 36,
+			  		starOff: '<%= asset_path("img/star-off.png") %>',
+			  		starOn:  '<%= asset_path("img/star-on.png") %>',
+			  		starHalf:  '<%= asset_path("img/star-half.png") %>',
+			  		half: true,
+			  		readOnly: true,
+			  		score: "<%= answer.rating.ratet.to_i %>"
+			  	})
+			  </script>
 		<% end %>
 	<% end %>
 

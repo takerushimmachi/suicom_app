@@ -4,15 +4,13 @@ class UsersController < ApplicationController
   def show
 		  @user = User.find(params[:id])
       @post = Post.new
-      @posts = @user.posts
-      @posts = Post.page(params[:page]).per(3)
+      @posts = @user.posts.page(params[:page]).per(3)
 end
 
 
   def mypage
       @post = Post.new
-      @posts = current_user.posts
-      @posts = Post.page(params[:page]).per(3)
+      @posts = current_user.posts.page(params[:page]).per(3)
 
   end
 

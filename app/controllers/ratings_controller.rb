@@ -1,9 +1,9 @@
 class RatingsController < ApplicationController
 def create
-		rating = Rating.new
+		rating = Rating.new(rating_params)
 		rating.user_id = current_user.id
 		rating.answer_id = params[:answer_id]
-		rating.save
+		rating.save!
 		redirect_to post_url(id: params[:post_id])
  	end
 
