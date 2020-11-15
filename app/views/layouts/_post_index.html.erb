@@ -1,7 +1,7 @@
 <% @posts.each do |post| %>
 <div class="card">
   <div class="card-img-top">
-    <%= attachment_image_tag post, :image, :fill, 200, 200, format: 'jpg' %>
+    <%= attachment_image_tag post, :image, :fill, 250, 200, format: 'jpg' %>
   </div>
     <div class="card-body">
     <h4><%= post.user.name %></h4>
