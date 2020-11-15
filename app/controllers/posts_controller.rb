@@ -12,6 +12,7 @@ class PostsController < ApplicationController
 		@answers = @post.answers
 		@answer = current_user.answers.new
 		@user = @post.user
+
 	end
 
 

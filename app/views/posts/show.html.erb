@@ -17,9 +17,11 @@
 
 	<h3>回答一覧</h3>
 	<% @post.answers.each do |answer| %>
+	 <ul>
 		<li>
 			（回答）<%= answer.answer %>
 		</li>
+	 </ul>
 		<% if current_user == @post.user && answer.rating.nil? %>
 			<%= form_for [@post, answer, Rating.new] do |f| %>
 			  <div id="star-<%= answer.id %>">
@@ -53,7 +55,7 @@
 	<% end %>
 
 	<% if current_user == @post.user %>
-		<%= link_to "削除", post_path(@post), method: :delete, data: {confirm: "削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_post_#{@post.id}" %>
+		<%= link_to "投稿削除", post_path(@post), method: :delete, data: {confirm: "削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_post_#{@post.id}" %>
 	<% end %>
 </div>
 </table>
